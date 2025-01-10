@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Ex03.ConsoleUI
+namespace Ex03.GarageLogic.Enums
 {
-    internal class Program
+    public enum eColorType
     {
+        Blue, Black, White, Gray,
     }
 }
