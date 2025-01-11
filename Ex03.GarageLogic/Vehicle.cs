@@ -7,11 +7,16 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private readonly string r_VehicleModelName;
+        private string m_VehicleModelName;
         private readonly string r_LicencePlateNumber;
         private float m_EnergyPercentage;
         private List<Wheel> m_Wheels;
         private Engine m_Engine;
+
+        public Vehicle(string i_LicencePlateNumber)
+        {
+            r_LicencePlateNumber = i_LicencePlateNumber;
+        }
 
         //public Vehicle(string modelName, string licencePlateNumber, float energyPercentage, List<Wheel> Wheels, Engine engine)
         //{
@@ -66,5 +71,4 @@ namespace Ex03.GarageLogic
                 m_Engine = value;
             }
         }
-    }
 }

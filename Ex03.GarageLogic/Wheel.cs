@@ -5,7 +5,10 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    internal class Wheel
+    public class Wheel
     {
+        private readonly string r_ManufacturerName;
+        private float m_CurrentAirPressure;
+        private readonly float r_MaxAirPressure;
     }
 }

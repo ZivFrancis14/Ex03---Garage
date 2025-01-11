@@ -41,10 +41,11 @@
     <Compile Include="Enums\eLicenceType.cs" />
     <Compile Include="Enums\eColorType.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Enums\eVehicleType.cs" />
     <Compile Include="GarageManager.cs" />
     <Compile Include="GasEngine.cs" />
     <Compile Include="Motorcycle.cs" />
-    <Compile Include="NewVehicles.cs" />
+    <Compile Include="VehiclesCreator.cs" />
     <Compile Include="Truck.cs" />
     <Compile Include="ValueOutOfRangeException.cs" />
     <Compile Include="Vehicle.cs" />
