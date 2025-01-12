@@ -131,22 +131,15 @@ namespace Ex03.ConsoleUI
                     }
                     if (choice < 1 || choice > i_VehicleOptions.Length)
                     {
-                        throw new ArgumentOutOfRangeException("choice", "The number you entered is out of range.");
+                        throw new FormatException("Invalid input. Please enter a number.");
                     }
                     userChoice = i_VehicleOptions[choice - 1];
                     inputIsValid = true;
                 }
                 catch (FormatException ex)
                 {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
-                catch (ValueOutOfRangeException ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("An unexpected error occurred: " + ex.Message);
+                    msg = string.Format("Error: ", ex.Message);
+                    Console.WriteLine(msg);
                 }
             }
 
@@ -157,13 +150,14 @@ namespace Ex03.ConsoleUI
             switch(i_Vehicle)
             {
                 case Car car:
+
                     if (car.Engine is GasEngine)
                     {
-                       
+                        insertVehicleGasCar(car);
                     }
                     else
                     {
-                        insertVehicleElectricCar(ref car);
+                        insertVehicleElectricCar(car);
                     }
                     break;
                 case Motorcycle motorcycle:
@@ -171,7 +165,7 @@ namespace Ex03.ConsoleUI
                     {
                         insertVehicleGasMotorcycle(motorcycle);
                     }
-                    else //אני הוספת if אבל לא יודעת אם לזה התכוונת
+                    else
                     {
                         insertVehicleElectricMotorcycle(motorcycle);
                     }
@@ -183,29 +177,34 @@ namespace Ex03.ConsoleUI
                     break;
             }
         }
-        private void insertVehicleTruck(Truck truck)
+        private void insertVehicleTruck(Truck i_Truck)
         {
-            throw new NotImplementedException();
+            insertGeneralVehicleStatus(i_Truck);
         }
-        private void insertVehicleElectricMotorcycle(Motorcycle motorcycle)
+        private void insertVehicleElectricMotorcycle(Motorcycle i_Motorcycle)
         {
-            throw new NotImplementedException();
+            insertGeneralVehicleStatus(i_Motorcycle);
         }
-        private void insertVehicleGasMotorcycle(Motorcycle motorcycle)
+        private void insertVehicleGasMotorcycle(Motorcycle i_Motorcycle)
         {
-            throw new NotImplementedException();
+            insertGeneralVehicleStatus(i_Motorcycle);
         }
-        private void insertVehicleElectricCar(ref Car car)
+        private void insertVehicleElectricCar(Car i_Car)
         {
-
+            insertGeneralVehicleStatus(i_Car);
+            m_CarConsole.InsertElectricCarStatus(ref i_Car);
         }
-        private void insertVehicleGasCar(ref Car i_Car)
+        private void insertVehicleGasCar(Car i_Car)
+        {
+            insertGeneralVehicleStatus(i_Car);
+            m_CarConsole.InsertGasCarStatus(ref i_Car);
+        }
+        private void insertGeneralVehicleStatus(Vehicle i_Vehicle)
         {
             string msg = "Please enter Model Name:";
             Console.WriteLine(msg);
-            i_Car.ModelName = getModelOrManufacturerNameFromUser();
-            currentWheelsCondition(ref i_Car);
-            m_CarConsole.InsertGasCarStatus(ref i_Car);
+            i_Vehicle.ModelName = getModelOrManufacturerNameFromUser();
+            currentWheelsCondition(i_Vehicle);
         }
         private string getModelOrManufacturerNameFromUser()
         {
@@ -274,12 +273,12 @@ namespace Ex03.ConsoleUI
             float energyPercentage = (currentEnergy / i_MaxEnergy) * 100;
             return energyPercentage;
         }
-        private void currentWheelsCondition(ref Car i_Car)
+        private void currentWheelsCondition(Vehicle i_Vehicle)
         {
             string msg = "Please enter Manufacturer Name:";
             Console.WriteLine(msg);
             getModelOrManufacturerNameFromUser();
-            i_Car.EnergyPercentage = currentEnergyPercentage(i_Car.Wheels[0].MaxAirPressure);
+            i_Vehicle.EnergyPercentage = currentEnergyPercentage(i_Vehicle.Wheels[0].MaxAirPressure);
         }
     }
 }

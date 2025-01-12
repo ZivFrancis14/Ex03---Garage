@@ -17,6 +17,11 @@ namespace Ex03.GarageLogic
             r_MaxLitersFuelQuantity = i_MaxLitersFuelQuantity;
             m_FuelType = i_FuelType;
         }
+
+        public float MaxLitersFuelQuantity
+        {
+            get { return r_MaxLitersFuelQuantity; }
+        }
     }
      
 }
