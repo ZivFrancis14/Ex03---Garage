@@ -7,25 +7,24 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private string m_VehicleModelName;
-        private readonly string r_LicencePlateNumber;
+        private readonly string r_VehicleModelName;
+        private  string m_VehicleModelName;
         private float m_EnergyPercentage;
         private List<Wheel> m_Wheels;
         private Engine m_Engine;
 
-        public Vehicle(string i_LicencePlateNumber)
+        public Vehicle(string i_LicencePlateNumber, Engine i_Engine)
         {
-            r_LicencePlateNumber = i_LicencePlateNumber;
+            m_Engine = i_Engine;
+            m_VehicleModelName = i_LicencePlateNumber;
         }
 
-        //public Vehicle(string modelName, string licencePlateNumber, float energyPercentage, List<Wheel> Wheels, Engine engine)
-        //{
-        //    r_VehicleModelName = modelName;
-        //    r_LicencePlateNumber = licencePlateNumber;
-        //    m_EnergyPercentage = energyPercentage;
-        //    m_Wheels = Wheels;
-        //    m_Engine = engine;
-        //}
+        public void CompleteVehicleDetails(string i_VehicleModelName, float i_EnergyPercentage, List<Wheel> i_Wheels)
+        {
+            m_VehicleModelName = i_VehicleModelName;
+            m_EnergyPercentage = i_EnergyPercentage;
+            m_Wheels = i_Wheels;
+        }
         public float EnergyPercentage
         {
             get
@@ -41,21 +40,18 @@ namespace Ex03.GarageLogic
                 m_EnergyPercentage = value;
             }
         }
-        //public List<Wheel> Wheels
-        //{
-        //    get
-        //    {
-        //        return m_Wheels;
-        //    }
-        //    set
-        //    {
-        //        if (value == null || value.Count == 0)
-        //        {
-        //            throw new ArgumentException("Wheels list cannot be null or empty.");
-        //        }
-        //        m_Wheels = value;
-        //    }
-        //}
+        public List<Wheel> Wheels
+        {
+            get => m_Wheels;
+            set
+            {
+                if (value == null || value.Count == 0)
+                {
+                    throw new ArgumentException("Wheels list cannot be null or empty.");
+                }
+                m_Wheels = value;
+            }
+        }
         public Engine Engine
         {
             get
@@ -71,4 +67,14 @@ namespace Ex03.GarageLogic
                 m_Engine = value;
             }
         }
+        public string LicencePlate
+        {
+            get
+            {
+                return m_VehicleModelName;
+            }
+        }
+
+
+    }
 }

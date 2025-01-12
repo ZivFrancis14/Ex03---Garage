@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    internal class GarageManager
+    public class GarageManager
     {
 
     }

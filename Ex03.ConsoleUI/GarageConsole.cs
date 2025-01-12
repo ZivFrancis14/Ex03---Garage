@@ -169,7 +169,7 @@ namespace Ex03.ConsoleUI
                     {
                         insertGasMotorcycleStatus(motorcycle);
                     }
-                    else(motorcycle.Engine is ElectricEngine)
+                    else if (motorcycle.Engine is ElectricEngine) //אני הוספת if אבל לא יודעת אם לזה התכוונת
                     {
                         insertElectricMotorcycleStatus(motorcycle);
                     }

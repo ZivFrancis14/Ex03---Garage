@@ -10,6 +10,6 @@ namespace Ex03.GarageLogic
     {
         private eFuelType m_FuelType;
         private float m_CurrentFuelQuantity;
-        private float m_MaxLitersFuelQuantity;
+        private readonly float r_MaxLitersFuelQuantity;
     }
 }

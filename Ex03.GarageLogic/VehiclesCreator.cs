@@ -17,14 +17,14 @@ namespace Ex03.GarageLogic
         public Car CreateGasCar(string i_LicencePlateNumber)
         {
             GasEngine gasEngine = new GasEngine();
-            Car newCar = new Car(gasEngine, i_LicencePlateNumber);
+            Car newCar = new Car(i_LicencePlateNumber, gasEngine);
 
             return newCar;
         }
         public Car CreateElectricCar(string i_LicencePlateNumber)
         {
             ElectricEngine electricEngine = new ElectricEngine();
-            Car newCar = new Car(electricEngine, i_LicencePlateNumber);
+            Car newCar = new Car(i_LicencePlateNumber, electricEngine);
 
             return newCar;
         }
@@ -45,7 +45,7 @@ namespace Ex03.GarageLogic
         public Truck CreateTruck(string i_LicencePlateNumber)
         {
             GasEngine gasEngine = new GasEngine();
-            Truck newTruck = new Truck(gasEngine, i_LicencePlateNumber);
+            Truck newTruck = new Truck(i_LicencePlateNumber, gasEngine);
 
             return newTruck;
         }
