@@ -9,6 +9,14 @@ namespace Ex03.GarageLogic
     {
         private float m_BatteryTimeLeftInHours;
         private readonly float r_MaxBatteryCappacityInHours;
+
+        public ElectricEngine(float i_MaxBatteryCapacityInHours)
+        {
+            r_MaxBatteryCapacityInHours = i_MaxBatteryCapacityInHours;
+        }
+
+        
+
     }
 
 }

@@ -3,6 +3,7 @@ using Ex03.GarageLogic.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 
 namespace Ex03.ConsoleUI
@@ -10,6 +11,7 @@ namespace Ex03.ConsoleUI
     public class GarageConsole
     {
         private VehiclesCreator m_VehiclesCreator;
+        private CarConsole m_CarConsole;
 
         public void startGarageSystem()
         {
@@ -157,53 +159,127 @@ namespace Ex03.ConsoleUI
                 case Car car:
                     if (car.Engine is GasEngine)
                     {
-                        insertGasCarStatus(car);
+                       
                     }
                     else
                     {
-                        insertElectricCarStatus(car);
+                        insertVehicleElectricCar(ref car);
                     }
                     break;
                 case Motorcycle motorcycle:
                     if (motorcycle.Engine is GasEngine)
                     {
-                        insertGasMotorcycleStatus(motorcycle);
+                        insertVehicleGasMotorcycle(motorcycle);
                     }
-                    else if (motorcycle.Engine is ElectricEngine) //אני הוספת if אבל לא יודעת אם לזה התכוונת
+                    else //אני הוספת if אבל לא יודעת אם לזה התכוונת
                     {
-                        insertElectricMotorcycleStatus(motorcycle);
+                        insertVehicleElectricMotorcycle(motorcycle);
                     }
                     break;
                 case Truck truck:
-                    insertTruckStatus(truck);
+                    insertVehicleTruck(truck);
                     break;
                 default:
                     break;
             }
         }
-        private void insertTruckStatus(Truck truck)
+        private void insertVehicleTruck(Truck truck)
         {
             throw new NotImplementedException();
         }
-
-        private void insertElectricMotorcycleStatus(Motorcycle motorcycle)
+        private void insertVehicleElectricMotorcycle(Motorcycle motorcycle)
         {
             throw new NotImplementedException();
         }
-
-        private void insertGasMotorcycleStatus(Motorcycle motorcycle)
+        private void insertVehicleGasMotorcycle(Motorcycle motorcycle)
         {
             throw new NotImplementedException();
         }
-
-        private void insertElectricCarStatus(Car car)
+        private void insertVehicleElectricCar(ref Car car)
         {
-            throw new NotImplementedException();
+
         }
-
-        private void insertGasCarStatus(Car car)
+        private void insertVehicleGasCar(ref Car i_Car)
         {
-            throw new NotImplementedException();
+            string msg = "Please enter Model Name:";
+            Console.WriteLine(msg);
+            i_Car.ModelName = getModelOrManufacturerNameFromUser();
+            currentWheelsCondition(ref i_Car);
+            m_CarConsole.InsertGasCarStatus(ref i_Car);
+        }
+        private string getModelOrManufacturerNameFromUser()
+        {
+            string modelName = string.Empty;
+            bool isValidInput = false;
+
+            while (isValidInput == false)
+            {
+                modelName = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(modelName))
+                {
+                    string msg = "Input cannot be empty or whitespace. Please try again.";
+                    Console.WriteLine(msg);
+                }
+                else
+                {
+                    isValidInput = true;
+                }
+            }
+
+            return modelName;
+        }
+        private float currentEnergyPercentage(float i_MaxEnergy)
+        {
+            float currentEnergy = 0;
+            bool isValidInput = false;
+            string userInput = string.Empty;
+            int k_MinEnergy = 0;
+            string msg = string.Empty;
+
+            while (isValidInput == false)
+            {
+                try
+                {
+                    msg = string.Format("Please Enter The current energy percentage (value between {0} - {1}):", i_MinEnergy, i_MaxEnergy);
+                    Console.WriteLine(msg);
+                    userInput = Console.ReadLine();
+                    if (float.TryParse(userInput, out currentEnergy) == false)
+                    {
+                        throw new FormatException("Invalid input. Please enter a numeric value.");
+                    }
+
+                    if (currentEnergy < k_MinEnergy || currentEnergy > i_MaxEnergy)
+                    {
+                        throw new ValueOutOfRangeException(k_MinEnergy, i_MaxEnergy);
+                    }
+
+                    isValidInput = true;
+                }
+                catch (FormatException ex)
+                {
+                    msg = string.Format("Error: {0}", ex.Message);
+                }
+                catch (ValueOutOfRangeException ex)
+                {
+                    msg = string.Format("Error: {0}", ex.Message);
+                    Console.WriteLine(msg);
+                }
+                catch (Exception ex)
+                {
+                    msg = string.Format("Error: {0}", ex.Message);
+                    Console.WriteLine(msg);
+                }
+            }
+
+            float energyPercentage = (currentEnergy / i_MaxEnergy) * 100;
+            return energyPercentage;
+        }
+        private void currentWheelsCondition(ref Car i_Car)
+        {
+            string msg = "Please enter Manufacturer Name:";
+            Console.WriteLine(msg);
+            getModelOrManufacturerNameFromUser();
+            i_Car.EnergyPercentage = currentEnergyPercentage(i_Car.Wheels[0].MaxAirPressure);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Ex03.GarageLogic
         }
         public Car CreateElectricCar(string i_LicencePlateNumber)
         {
-            ElectricEngine electricEngine = new ElectricEngine();
+            ElectricEngine electricEngine = new ElectricEngine(5.4f);
             Car newCar = new Car(i_LicencePlateNumber, electricEngine);
 
             return newCar;

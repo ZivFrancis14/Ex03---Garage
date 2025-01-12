@@ -41,6 +41,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarConsole.cs" />
     <Compile Include="GarageConsole.cs" />
     <Compile Include="Program.cs" />
   </ItemGroup>

@@ -7,23 +7,40 @@ namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private readonly string r_VehicleModelName;
+        private readonly string r_LicencePlateNumber;
         private  string m_VehicleModelName;
         private float m_EnergyPercentage;
         private List<Wheel> m_Wheels;
-        private Engine m_Engine;
+        private  Engine m_Engine;
 
         public Vehicle(string i_LicencePlateNumber, Engine i_Engine)
         {
             m_Engine = i_Engine;
-            m_VehicleModelName = i_LicencePlateNumber;
+            r_LicencePlateNumber = i_LicencePlateNumber;
+        }
+        public void InitializeVehicleWheels(int i_NumberOfWheels, float i_WheelsMaxPressure)
+        {
+            m_Wheels = new List<Wheel>();
+            for (int i = 0; i < i_NumberOfWheels; i++)
+            {
+                m_Wheels.Add(new Wheel(i_WheelsMaxPressure));
+            }
+        }
+        public virtual void CompleteVehicleDetails(object[] i_VehicleDetails)
+        {
+            ModelName = (i_VehicleDetails[0]).ToString();
         }
 
-        public void CompleteVehicleDetails(string i_VehicleModelName, float i_EnergyPercentage, List<Wheel> i_Wheels)
+        public string ModelName
         {
-            m_VehicleModelName = i_VehicleModelName;
-            m_EnergyPercentage = i_EnergyPercentage;
-            m_Wheels = i_Wheels;
+            get 
+            { 
+                return m_VehicleModelName; 
+            }
+            set
+            {
+                m_VehicleModelName = value;
+            }
         }
         public float EnergyPercentage
         {
@@ -42,7 +59,7 @@ namespace Ex03.GarageLogic
         }
         public List<Wheel> Wheels
         {
-            get => m_Wheels;
+            get { return m_Wheels; }
             set
             {
                 if (value == null || value.Count == 0)
