@@ -44,6 +44,7 @@
     <Compile Include="Enums\eLicenceType.cs" />
     <Compile Include="Enums\eColorType.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Enums\eVehicleStatus.cs" />
     <Compile Include="Enums\eVehicleType.cs" />
     <Compile Include="GarageManager.cs" />
     <Compile Include="GasEngine.cs" />

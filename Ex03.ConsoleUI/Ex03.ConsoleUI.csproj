@@ -43,7 +43,9 @@
   <ItemGroup>
     <Compile Include="CarConsole.cs" />
     <Compile Include="GarageConsole.cs" />
+    <Compile Include="MotorcycleConsole.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="TruckConsole.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

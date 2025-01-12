@@ -8,14 +8,21 @@ namespace Ex03.GarageLogic
 {
     public class Motorcycle : Vehicle
     {
-        private readonly eLicenceType r_LicenceType;
-        private  readonly int r_EngineCapacity;
+        private eLicenceType m_LicenceType;
+        private readonly int r_EngineCapacity;
 
+        public Motorcycle(Engine i_Engine, string i_LicencePlateNumber) : base(i_LicencePlateNumber, i_Engine)
+        {
+        }
         public eLicenceType LicenceType
         {
             get
             {
-                return r_LicenceType;
+                return m_LicenceType;
+            }
+            set
+            {
+                m_LicenceType = value;
             }
         }
 
@@ -25,12 +32,7 @@ namespace Ex03.GarageLogic
             {
                 return r_EngineCapacity;
             }
-
         }
-        public Motorcycle(Engine i_Engine, string i_LicencePlateNumber) : base(i_LicencePlateNumber, i_Engine)
-        {
-        }
-
 
 
 

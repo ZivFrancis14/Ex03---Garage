@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     public class Truck : Vehicle
     {
         private bool m_TransportingRefrigerate;
-        private float m_CargoVolume;
+        private readonly float r_CargoVolume;
 
         public Truck(string i_LicencePlateNumber, Engine i_Engine) : base(i_LicencePlateNumber, i_Engine)
         {
