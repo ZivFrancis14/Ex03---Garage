@@ -9,17 +9,14 @@ namespace Ex03_Ziv_315154351_Rony_318916871
 {
     public class MotorcycleConsole
     {
-        public void InsertGasCarStatus(ref Motorcycle i_Motorcycle)
+        public void InsertMotorcycleStatus(List<object> valuesToVehicle)
         {
-            i_Motorcycle.LicenceType = getLicenceType();
-        }
-        public void InsertElectricCarStatus(ref Motorcycle i_Motorcycle)
-        {
-            i_Motorcycle.LicenceType = getLicenceType();
+            valuesToVehicle.Add(getLicenceType());
+            valuesToVehicle.Add(getEngineCapacity());
         }
         private eLicenceType getLicenceType()
         {
-            eLicenceType licenceType = eLicenceType.A1; // ברירת מחדל
+            eLicenceType licenceType = eLicenceType.A1;
             bool isValidInput = false;
             string msg = string.Empty;
 
@@ -27,25 +24,50 @@ namespace Ex03_Ziv_315154351_Rony_318916871
             {
                 try
                 {
-                    msg = "Please select a licence type by entering the corresponding number:";
+                    msg = "Please select a licence type from the following options:";
                     Console.WriteLine(msg);
-
-                    eLicenceType[] licenceTypes = (eLicenceType[])Enum.GetValues(typeof(eLicenceType));
-                    for (int i = 0; i < licenceTypes.Length; i++)
+                    foreach (eLicenceType type in Enum.GetValues(typeof(eLicenceType)))
                     {
-                        msg = string.Format("({0}) - {1}", i + 1, licenceTypes[i]);
-                        Console.WriteLine(msg);
+                        Console.WriteLine(string.Format("- {0}", type));
                     }
 
-                    msg = "Enter the number of your choice:";
+                    msg = "Enter your licence type:";
                     Console.WriteLine(msg);
                     string userInput = Console.ReadLine();
-                    if (int.TryParse(userInput, out int choice) == false || choice < 1 || choice > licenceTypes.Length)
+                    if (!Enum.TryParse(userInput, true, out licenceType) || !Enum.IsDefined(typeof(eLicenceType), licenceType))
                     {
-                        throw new FormatException("Invalid input. Please enter a number corresponding to a valid licence type.");
+                        throw new FormatException("Invalid licence type. Please select a valid option.");
                     }
 
-                    licenceType = licenceTypes[choice - 1];
+                    isValidInput = true; 
+                }
+                catch (FormatException ex)
+                {
+                    msg = string.Format("Error: {0}", ex.Message);
+                    Console.WriteLine(msg);
+                }
+            }
+
+            return licenceType;
+        }
+        private int getEngineCapacity()
+        {
+            int engineCapacity = 0;
+            bool isValidInput = false;
+            string msg = string.Empty;
+
+            while (isValidInput == false)
+            {
+                try
+                {
+                    msg = "Please enter the engine capacity (in cc, must be a positive integer):";
+                    Console.WriteLine(msg);
+                    string userInput = Console.ReadLine();
+                    if (!int.TryParse(userInput, out engineCapacity) || engineCapacity <= 0)
+                    {
+                        throw new FormatException("Invalid input. Please enter a numeric value.");
+                    }
+
                     isValidInput = true;
                 }
                 catch (FormatException ex)
@@ -53,15 +75,9 @@ namespace Ex03_Ziv_315154351_Rony_318916871
                     msg = string.Format("Error: {0}", ex.Message);
                     Console.WriteLine(msg);
                 }
-                catch (Exception ex)
-                {
-                    msg = string.Format("Unexpected error: {0}", ex.Message);
-                    Console.WriteLine(msg);
-                }
             }
 
-            return licenceType;
+            return engineCapacity;
         }
-
     }
 }

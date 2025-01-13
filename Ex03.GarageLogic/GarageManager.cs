@@ -15,11 +15,14 @@ namespace Ex03.GarageLogic
         }
         public Dictionary<string, Vehicle> CurrentVehicleInGarage
         {
-            get { return m_CurrentVehicleInGarage; }
+            get 
+            { 
+                return m_CurrentVehicleInGarage; 
+            }
         }
-        public void AddNewVehicle(string i_LicencePlateNumber, Vehicle i_NewVehicle)
+        public void AddNewVehicle(Vehicle i_NewVehicle)
         {
-            m_CurrentVehicleInGarage.Add(i_LicencePlateNumber, i_NewVehicle);
+            m_CurrentVehicleInGarage.Add(i_NewVehicle.LicencePlate, i_NewVehicle);
         }
         public bool isVehicleExisit(string i_LicencePlateNumber)
         {

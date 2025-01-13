@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Ex03.GarageLogic
 {
     public abstract class Vehicle
     {
-        private readonly string r_LicencePlateNumber;
+        private string m_LicencePlateNumber;
         private  string m_VehicleModelName;
         private float m_EnergyPercentage;
         private List<Wheel> m_Wheels;
         private  Engine m_Engine;
 
-        public Vehicle(string i_LicencePlateNumber, Engine i_Engine)
+        public Vehicle(string i_LicencePlateNumber, Engine i_Engine, int i_NumberOfWheels, float i_WheelsMaxPressure)
         {
             m_Engine = i_Engine;
-            r_LicencePlateNumber = i_LicencePlateNumber;
+            m_LicencePlateNumber = i_LicencePlateNumber;
+            initializeVehicleWheels(i_NumberOfWheels, i_WheelsMaxPressure);
         }
-        public void InitializeVehicleWheels(int i_NumberOfWheels, float i_WheelsMaxPressure)
+        private void initializeVehicleWheels(int i_NumberOfWheels, float i_WheelsMaxPressure)
         {
             m_Wheels = new List<Wheel>();
             for (int i = 0; i < i_NumberOfWheels; i++)
@@ -26,16 +25,31 @@ namespace Ex03.GarageLogic
                 m_Wheels.Add(new Wheel(i_WheelsMaxPressure));
             }
         }
-        public virtual void CompleteVehicleDetails(object[] i_VehicleDetails)
+        public virtual void CompleteVehicleDetails(List<object> i_VehicleDetails)
         {
-            ModelName = (i_VehicleDetails[0]).ToString();
+            ModelName = i_VehicleDetails[0]?.ToString();
+            Engine.InitEngine((float)i_VehicleDetails[1]);
+            m_EnergyPercentage = Engine.EnergyPrecentage();
+            UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
         }
+        private void UpdateWheels(float i_AirPressure, string i_ManufacturerName)
+        {
+            if (i_AirPressure > Wheels[0].MaxAirPressure)
+            {
+                //throw new ArgumentException($"Air pressure {i_AirPressure} exceeds the maximum allowed pressure {Wheels[0].MaxAirPressure} for this wheel.");
+            }
 
+            foreach (Wheel wheel in Wheels)
+            {
+                wheel.ManufacturerName = i_ManufacturerName;
+                wheel.CurrentAirPressure = i_AirPressure;
+            }
+        }
         public string ModelName
         {
-            get 
-            { 
-                return m_VehicleModelName; 
+            get
+            {
+                return m_VehicleModelName;
             }
             set
             {
@@ -88,7 +102,11 @@ namespace Ex03.GarageLogic
         {
             get
             {
-                return m_VehicleModelName;
+                return m_LicencePlateNumber;
+            }
+            set
+            {
+                m_LicencePlateNumber = value;
             }
         }
     }

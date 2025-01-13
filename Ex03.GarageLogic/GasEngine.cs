@@ -17,10 +17,22 @@ namespace Ex03.GarageLogic
             r_MaxLitersFuelQuantity = i_MaxLitersFuelQuantity;
             m_FuelType = i_FuelType;
         }
-
         public float MaxLitersFuelQuantity
         {
             get { return r_MaxLitersFuelQuantity; }
+        }
+        public override void InitEngine(float i_CurrentFeulQuantity)
+        {
+            if (i_CurrentFeulQuantity < 0|| i_CurrentFeulQuantity > r_MaxLitersFuelQuantity)
+            {
+                throw new ArgumentException("Invalid parameters for initializing GasEngine.");
+            }
+
+            m_CurrentFuelQuantity = i_CurrentFeulQuantity;
+        }
+        public override float EnergyPrecentage()
+        {
+            return (m_CurrentFuelQuantity / r_MaxLitersFuelQuantity) * 100;
         }
     }
      

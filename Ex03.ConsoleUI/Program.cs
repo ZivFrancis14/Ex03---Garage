@@ -9,7 +9,8 @@ namespace Ex03.ConsoleUI
     {
         public static void Main()
         {
-
+            GarageConsole garageConsole = new GarageConsole();
+            garageConsole.startGarageSystem();
         }
     }
 }
