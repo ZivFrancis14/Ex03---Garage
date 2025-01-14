@@ -27,16 +27,29 @@ namespace Ex03.GarageLogic
         }
         public virtual void CompleteVehicleDetails(List<object> i_VehicleDetails)
         {
-            ModelName = i_VehicleDetails[0]?.ToString();
-            Engine.InitEngine((float)i_VehicleDetails[1]);
-            m_EnergyPercentage = Engine.EnergyPrecentage();
-            UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
+            try
+            {
+                ModelName = i_VehicleDetails[0].ToString();
+                Engine.InitEngine((float)i_VehicleDetails[1]);
+                m_EnergyPercentage = Engine.EnergyPrecentage();
+                UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
+            }
+            catch(ValueOutOfRangeException ex)
+            {
+                string msg = string.Format("Error: {0}", ex.Message);
+                Console.WriteLine(msg);
+            }
+            catch (Exception ex)
+            {
+                string msg = string.Format("Error: {0}", ex.Message);
+                Console.WriteLine(msg);
+            }
         }
         private void UpdateWheels(float i_AirPressure, string i_ManufacturerName)
         {
             if (i_AirPressure > Wheels[0].MaxAirPressure)
             {
-                //throw new ArgumentException($"Air pressure {i_AirPressure} exceeds the maximum allowed pressure {Wheels[0].MaxAirPressure} for this wheel.");
+                throw new ValueOutOfRangeException(0, Wheels[0].MaxAirPressure);
             }
 
             foreach (Wheel wheel in Wheels)

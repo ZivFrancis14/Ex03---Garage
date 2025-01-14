@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
     public class Car : Vehicle
     {
         private eColorType m_Color;
-        private int m_NumberOfDoors = 2; //can be 2,3,4,5
+        private int m_NumberOfDoors = 0; //can be 2,3,4,5
         private const int k_NumberOfWheels = 4;
         private const int k_WheelsMaxPressure = 34;
 
@@ -26,12 +26,23 @@ namespace Ex03.GarageLogic
             }
             private set
             {
-                //if (value < k_MinNumOfDoors || value > k_MaxNumOfDoors)
-                //{
-                //    //throw new ValueOutOfRangeException(2, 5, "Doors");
-                //}
-                m_NumberOfDoors = value;
+                if (checkDoorsValue(value) == true)
+                {
+                    m_NumberOfDoors = value;
+                }               
             }
+        }
+        private bool checkDoorsValue(int inputDoorsNumber)
+        {
+            const int k_MinNumOfDoors = 2;
+            const int k_MaxNumOfDoors = 5;
+
+            if (inputDoorsNumber < k_MinNumOfDoors || inputDoorsNumber > k_MaxNumOfDoors)
+            {
+                throw new ValueOutOfRangeException(k_MinNumOfDoors, k_MaxNumOfDoors);
+            }
+
+            return false;
         }
 
         public override void CompleteVehicleDetails(List<object> i_VehicleDetails)

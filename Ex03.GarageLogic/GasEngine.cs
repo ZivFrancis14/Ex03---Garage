@@ -25,7 +25,7 @@ namespace Ex03.GarageLogic
         {
             if (i_CurrentFeulQuantity < 0|| i_CurrentFeulQuantity > r_MaxLitersFuelQuantity)
             {
-                throw new ArgumentException("Invalid parameters for initializing GasEngine.");
+                throw new ValueOutOfRangeException(0, r_MaxLitersFuelQuantity);
             }
 
             m_CurrentFuelQuantity = i_CurrentFeulQuantity;
