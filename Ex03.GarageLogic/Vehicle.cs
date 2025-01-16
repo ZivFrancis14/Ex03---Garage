@@ -58,6 +58,13 @@ namespace Ex03.GarageLogic
                 wheel.CurrentAirPressure = i_AirPressure;
             }
         }
+        public void FillMaxAirToWeels()
+        {
+            foreach (Wheel wheel in Wheels)
+            {
+                wheel.FillAirToMax();
+            }
+        }
         public string ModelName
         {
             get

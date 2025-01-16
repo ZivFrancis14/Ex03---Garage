@@ -45,6 +45,10 @@ namespace Ex03.GarageLogic
                 m_CurrentAirPressure = value;
             }
         }
+        public void FillAirToMax()
+        {
+            CurrentAirPressure = r_MaxAirPressure;
+        }
     }
    
 }
