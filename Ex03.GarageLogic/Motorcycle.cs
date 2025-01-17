@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
     public class Motorcycle : Vehicle
     {
         private eLicenceType m_LicenceType;
-        private int m_EngineCapacity;
+        private int m_EngineVolume;
 
         private const int k_NumberOfWheels = 4;
         private const int k_WheelsMaxPressure = 34;
@@ -29,61 +29,23 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public int EngineCapacity
+        public int EngineVolume
         {
             get
             {
-                return m_EngineCapacity;
+                return m_EngineVolume;
             }
             set
             {
-                m_EngineCapacity = value;
+                m_EngineVolume = value;
             }
         }
         public override void CompleteVehicleDetails(List<object> i_VehicleDetails)
         {
             base.CompleteVehicleDetails(i_VehicleDetails);
-            setLicenceType(i_VehicleDetails[4].ToString());
-            setEngineVolume(i_VehicleDetails[5].ToString());
+            LicenceType = (eLicenceType)i_VehicleDetails[4];
+            EngineVolume = (int)i_VehicleDetails[5];
         }
-        private void setEngineVolume(string i_EngineVolumeAsStr)
-        {
-            bool isNumber = int.TryParse(i_EngineVolumeAsStr, out int engineVolume);
-
-            if (!isNumber)
-            {
-                throw new FormatException("Invalid: Syntactically incorrect input for Engine Volume");
-            }
-
-            else
-            {
-                EngineCapacity = engineVolume;
-            }
-        }
-        private void setLicenceType(string i_LicenceTypeAsStr)
-        {
-            bool iseLicenceType = Enum.TryParse(i_LicenceTypeAsStr, out eLicenceType licenceType);
-
-            if (!iseLicenceType || !Enum.IsDefined(typeof(eLicenceType), licenceType))
-            {
-                throw new ArgumentException("Invalid: Input is not a valid licence type for Licence Type");
-            }
-
-            else
-            {
-                m_LicenceType = licenceType;
-            }
-        }
-        public override string ToString()
-        {
-            string details = base.ToString();
-
-            details += string.Format("\nlicence type: {0}, Engine volume: {1}", LicenceType, EngineCapacity);
-
-            return details;
-        }
-
-
 
     }
 }

@@ -21,7 +21,6 @@ namespace Ex03.GarageLogic
 
             GasEngine gasEngine = new GasEngine(k_MaxLitersFuelQuantity, k_FuelType);
             Car newCar = new Car(i_LicencePlateNumber, gasEngine);
-            i_GarageManager.AddNewVehicle(newCar);
 
             return newCar;
         }
@@ -31,7 +30,6 @@ namespace Ex03.GarageLogic
 
             ElectricEngine electricEngine = new ElectricEngine(k_MaxBatteryCapacityInHours);
             Car newCar = new Car(i_LicencePlateNumber, electricEngine);
-            i_GarageManager.AddNewVehicle(newCar);
 
             return newCar;
         }
@@ -42,7 +40,6 @@ namespace Ex03.GarageLogic
 
             GasEngine gasEngine = new GasEngine(k_MaxLitersFuelQuantity, k_FuelType);
             Motorcycle newMotorcycle = new Motorcycle(gasEngine, i_LicencePlateNumber);
-            i_GarageManager.AddNewVehicle(newMotorcycle);
 
             return newMotorcycle;
         }
@@ -52,7 +49,6 @@ namespace Ex03.GarageLogic
 
             ElectricEngine electricEngine = new ElectricEngine(k_MaxBatteryCapacityInHours);
             Motorcycle newMotorcycle = new Motorcycle(electricEngine, i_LicencePlateNumber);
-            i_GarageManager.AddNewVehicle(newMotorcycle);
 
             return newMotorcycle;
         }
@@ -63,7 +59,6 @@ namespace Ex03.GarageLogic
 
             GasEngine gasEngine = new GasEngine(k_MaxLitersFuelQuantity, k_FuelType);
             Truck newTruck = new Truck(i_LicencePlateNumber, gasEngine);
-            i_GarageManager.AddNewVehicle(newTruck);
 
             return newTruck;
         }

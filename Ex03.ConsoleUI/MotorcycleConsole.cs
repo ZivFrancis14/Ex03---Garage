@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ex03_Ziv_315154351_Rony_318916871
 {
-    public class MotorcycleConsole
+    internal class MotorcycleConsole
     {
         public void InsertMotorcycleStatus(List<object> valuesToVehicle)
         {
@@ -78,6 +78,14 @@ namespace Ex03_Ziv_315154351_Rony_318916871
             }
 
             return engineCapacity;
+        }
+
+        internal void DisplayMotorcycleDetails(Motorcycle i_Motorcycle)
+        {
+            string msg = string.Empty;
+
+            msg = string.Format("- Licence Type: {0}\n- Engine Volume: {1}", i_Motorcycle.LicenceType.ToString(), i_Motorcycle.EngineVolume);
+            Console.WriteLine(msg);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex03.GarageLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ex03_Ziv_315154351_Rony_318916871
 {
-    public class TruckConsole
+    internal class TruckConsole
     {
         public void InsertTruckStatus(List<object> valuesToVehicle)
         {
@@ -19,7 +20,7 @@ namespace Ex03_Ziv_315154351_Rony_318916871
             bool isTransportingRefrigerated = false;
             string msg = string.Empty;
 
-            while (!isValidInput)
+            while (isValidInput == false)
             {
                 try
                 {
@@ -43,6 +44,15 @@ namespace Ex03_Ziv_315154351_Rony_318916871
 
             return isTransportingRefrigerated;
         }
+
+        internal void DisplayTruckDetails(Truck i_Truck)
+        {
+            string msg = string.Empty;
+
+            msg = string.Format("- Is Transporting Refrigerate: {0}\n- Engine Volume: {1}", i_Truck.TransportingRefrigerate.ToString(), i_Truck.CargoVolume);
+            Console.WriteLine(msg);
+        }
+
         private float getCargoVolume()
         {
             float cargoVolume = 0.0f;
@@ -58,7 +68,7 @@ namespace Ex03_Ziv_315154351_Rony_318916871
                     string userInput = Console.ReadLine();
                     if (!float.TryParse(userInput, out cargoVolume) || cargoVolume <= 0)
                     {
-                        throw new FormatException("Invalid input. Please enter a numeric value.");
+                        throw new FormatException("Invalid input. Please try again.");
                     }
 
                     isValidInput = true;
@@ -72,6 +82,5 @@ namespace Ex03_Ziv_315154351_Rony_318916871
 
             return cargoVolume;
         }
-
     }
 }

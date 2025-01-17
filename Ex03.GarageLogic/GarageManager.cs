@@ -7,22 +7,22 @@ namespace Ex03.GarageLogic
 {
     public class GarageManager
     {
-        private Dictionary<string, Vehicle> m_CurrentVehicleInGarage;
+        private Dictionary<string, VehicleRecord> m_CurrentVehicleInGarage;
 
         public GarageManager()
         {
-            m_CurrentVehicleInGarage = new Dictionary<string, Vehicle>();
+            m_CurrentVehicleInGarage = new Dictionary<string, VehicleRecord>();
         }
-        public Dictionary<string, Vehicle> CurrentVehicleInGarage
+        public Dictionary<string, VehicleRecord> CurrentVehicleInGarage
         {
             get 
             { 
                 return m_CurrentVehicleInGarage; 
             }
         }
-        public void AddNewVehicle(Vehicle i_NewVehicle)
+        public void AddNewVehicle(VehicleRecord i_NewVehicle)
         {
-            m_CurrentVehicleInGarage.Add(i_NewVehicle.LicencePlate, i_NewVehicle);
+            m_CurrentVehicleInGarage.Add(i_NewVehicle.Vehicle.LicencePlate, i_NewVehicle);
         }
         public bool isVehicleExisit(string i_LicencePlateNumber)
         {

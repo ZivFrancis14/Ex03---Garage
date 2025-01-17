@@ -11,61 +11,7 @@ namespace Ex03.GarageLogic
         private List<Wheel> m_Wheels;
         private  Engine m_Engine;
 
-        public Vehicle(string i_LicencePlateNumber, Engine i_Engine, int i_NumberOfWheels, float i_WheelsMaxPressure)
-        {
-            m_Engine = i_Engine;
-            m_LicencePlateNumber = i_LicencePlateNumber;
-            initializeVehicleWheels(i_NumberOfWheels, i_WheelsMaxPressure);
-        }
-        private void initializeVehicleWheels(int i_NumberOfWheels, float i_WheelsMaxPressure)
-        {
-            m_Wheels = new List<Wheel>();
-            for (int i = 0; i < i_NumberOfWheels; i++)
-            {
-                m_Wheels.Add(new Wheel(i_WheelsMaxPressure));
-            }
-        }
-        public virtual void CompleteVehicleDetails(List<object> i_VehicleDetails)
-        {
-            try
-            {
-                ModelName = i_VehicleDetails[0].ToString();
-                Engine.InitEngine((float)i_VehicleDetails[1]);
-                m_EnergyPercentage = Engine.EnergyPrecentage();
-                UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
-            }
-            catch(ValueOutOfRangeException ex)
-            {
-                string msg = string.Format("Error: {0}", ex.Message);
-                Console.WriteLine(msg);
-            }
-            catch (Exception ex)
-            {
-                string msg = string.Format("Error: {0}", ex.Message);
-                Console.WriteLine(msg);
-            }
-        }
-        private void UpdateWheels(float i_AirPressure, string i_ManufacturerName)
-        {
-            if (i_AirPressure > Wheels[0].MaxAirPressure)
-            {
-                throw new ValueOutOfRangeException(0, Wheels[0].MaxAirPressure);
-            }
-
-            foreach (Wheel wheel in Wheels)
-            {
-                wheel.ManufacturerName = i_ManufacturerName;
-                wheel.CurrentAirPressure = i_AirPressure;
-            }
-        }
-        public void FillMaxAirToWeels()
-        {
-            foreach (Wheel wheel in Wheels)
-            {
-                wheel.FillAirToMax();
-            }
-        }
-        public string ModelName
+        public string VehicleModelName
         {
             get
             {
@@ -127,6 +73,61 @@ namespace Ex03.GarageLogic
             set
             {
                 m_LicencePlateNumber = value;
+            }
+        }
+
+        public Vehicle(string i_LicencePlateNumber, Engine i_Engine, int i_NumberOfWheels, float i_WheelsMaxPressure)
+        {
+            m_Engine = i_Engine;
+            m_LicencePlateNumber = i_LicencePlateNumber;
+            initializeVehicleWheels(i_NumberOfWheels, i_WheelsMaxPressure);
+        }
+        private void initializeVehicleWheels(int i_NumberOfWheels, float i_WheelsMaxPressure)
+        {
+            m_Wheels = new List<Wheel>();
+            for (int i = 0; i < i_NumberOfWheels; i++)
+            {
+                m_Wheels.Add(new Wheel(i_WheelsMaxPressure));
+            }
+        }
+        public virtual void CompleteVehicleDetails(List<object> i_VehicleDetails)
+        {
+            try
+            {
+                VehicleModelName = i_VehicleDetails[0].ToString();
+                Engine.InitEngine((float)i_VehicleDetails[1]);
+                EnergyPercentage = Engine.EnergyPrecentage();
+                UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
+            }
+            catch(ValueOutOfRangeException ex)
+            {
+                string msg = string.Format("Error: {0}", ex.Message);
+                Console.WriteLine(msg);
+            }
+            catch (Exception ex)
+            {
+                string msg = string.Format("Error: {0}", ex.Message);
+                Console.WriteLine(msg);
+            }
+        }
+        private void UpdateWheels(float i_AirPressure, string i_ManufacturerName)
+        {
+            if (i_AirPressure > Wheels[0].MaxAirPressure)
+            {
+                throw new ValueOutOfRangeException(0, Wheels[0].MaxAirPressure);
+            }
+
+            foreach (Wheel wheel in Wheels)
+            {
+                wheel.ManufacturerName = i_ManufacturerName;
+                wheel.CurrentAirPressure = i_AirPressure;
+            }
+        }
+        public void FillMaxAirToWeels()
+        {
+            foreach (Wheel wheel in Wheels)
+            {
+                wheel.FillAirToMax();
             }
         }
     }

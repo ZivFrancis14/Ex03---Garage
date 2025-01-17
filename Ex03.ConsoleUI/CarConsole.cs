@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace Ex03.ConsoleUI
 {
-    public class CarConsole
+    internal class CarConsole
     {
         public void InsertCarStatus(List<object> valuesToVehicle)
         {            
             valuesToVehicle.Add(getColorOfCar());
             valuesToVehicle.Add(getNumberOfDoors());
         }
+
         private eColorType getColorOfCar()
         {
             eColorType carColor = eColorType.White;
@@ -78,6 +79,7 @@ namespace Ex03.ConsoleUI
                     }
 
                     isValidInput = true; 
+
                 }
                 catch (FormatException ex)
                 {
@@ -87,6 +89,14 @@ namespace Ex03.ConsoleUI
             }
 
             return numberOfDoors;
+        }
+        public void DisplayCarDetails(Car i_Car)
+        {
+            string msg = string.Empty;
+
+            msg = string.Format("- Car Color: {0}\n- Doors Number: {1}", i_Car.CarColor, i_Car.NumOfDoors);
+            Console.WriteLine(msg);
+
         }
     }
 }
