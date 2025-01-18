@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ex03.GarageLogic.Enums
+﻿namespace Ex03.GarageLogic.Enums
 {
     public enum eVehicleStatus
     {
-        InRepair = 1,   // בתיקון
-        Repaired,   // מוכן
-        Paid, //שולם
+        InRepair = 1,
+        Repaired, 
+        Paid,
     }
 }

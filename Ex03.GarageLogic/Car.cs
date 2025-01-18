@@ -1,8 +1,5 @@
 ﻿using Ex03.GarageLogic.Enums;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Ex03.GarageLogic
 {
@@ -13,11 +10,7 @@ namespace Ex03.GarageLogic
         private const int k_NumberOfWheels = 4;
         private const int k_WheelsMaxPressure = 34;
 
-        public Car(string i_LicencePlateNumber, Engine i_Engine) : base(i_LicencePlateNumber, i_Engine, k_NumberOfWheels, k_WheelsMaxPressure)
-        {
-            this.LicencePlate = i_LicencePlateNumber;
-            this.Engine = i_Engine;
-        }
+        public Car(string i_LicencePlateNumber, Engine i_Engine) : base(i_LicencePlateNumber, i_Engine, k_NumberOfWheels, k_WheelsMaxPressure) { }
         public int NumOfDoors
         {
             get
@@ -59,7 +52,6 @@ namespace Ex03.GarageLogic
             base.CompleteVehicleDetails(i_VehicleDetails);
             CarColor = (eColorType)i_VehicleDetails[4];
             NumOfDoors = initDoorsValue((int)i_VehicleDetails[5]);
-        }
-      
+        }  
     }
 }

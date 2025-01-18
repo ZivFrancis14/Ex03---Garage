@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Ex03.GarageLogic
 {
@@ -12,10 +9,7 @@ namespace Ex03.GarageLogic
         private const int k_NumberOfWheels = 14;
         private const int k_WheelsMaxPressure = 29;
 
-        public Truck(string i_LicencePlateNumber, Engine i_Engine) : base(i_LicencePlateNumber, i_Engine, k_NumberOfWheels, k_WheelsMaxPressure)
-        {
-
-        }
+        public Truck(string i_LicencePlateNumber, Engine i_Engine) : base(i_LicencePlateNumber, i_Engine, k_NumberOfWheels, k_WheelsMaxPressure) { }
         public bool TransportingRefrigerate
         {
             get

@@ -11,6 +11,12 @@ namespace Ex03.GarageLogic
         private List<Wheel> m_Wheels;
         private  Engine m_Engine;
 
+        public Vehicle(string i_LicencePlateNumber, Engine i_Engine, int i_NumberOfWheels, float i_WheelsMaxPressure)
+        {
+            m_Engine = i_Engine;
+            m_LicencePlateNumber = i_LicencePlateNumber;
+            initializeVehicleWheels(i_NumberOfWheels, i_WheelsMaxPressure);
+        }
         public string VehicleModelName
         {
             get
@@ -75,12 +81,6 @@ namespace Ex03.GarageLogic
                 m_LicencePlateNumber = value;
             }
         }
-        public Vehicle(string i_LicencePlateNumber, Engine i_Engine, int i_NumberOfWheels, float i_WheelsMaxPressure)
-        {
-            m_Engine = i_Engine;
-            m_LicencePlateNumber = i_LicencePlateNumber;
-            initializeVehicleWheels(i_NumberOfWheels, i_WheelsMaxPressure);
-        }
         private void initializeVehicleWheels(int i_NumberOfWheels, float i_WheelsMaxPressure)
         {
             m_Wheels = new List<Wheel>();
@@ -94,9 +94,9 @@ namespace Ex03.GarageLogic
             VehicleModelName = i_VehicleDetails[0].ToString();
             Engine.InitEngine((float)i_VehicleDetails[1]);
             EnergyPercentage = Engine.EnergyPrecentage();
-            UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
+            updateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
         }
-        private void UpdateWheels(float i_AirPressure, string i_ManufacturerName)
+        private void updateWheels(float i_AirPressure, string i_ManufacturerName)
         {
             if (i_AirPressure > Wheels[0].MaxAirPressure)
             {

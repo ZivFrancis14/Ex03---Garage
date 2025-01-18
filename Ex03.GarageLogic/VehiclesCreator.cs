@@ -9,7 +9,6 @@ namespace Ex03.GarageLogic
     public class VehiclesCreator
     {
         private eVehicleType[] m_CurrentVehicleType = { eVehicleType.GasCar, eVehicleType.ElectricCar, eVehicleType.GasMotorcycle, eVehicleType.ElectricMotorcycle, eVehicleType.Truck };
-
         public eVehicleType[] CurrentVehicleTypes
         {
             get { return m_CurrentVehicleType; }

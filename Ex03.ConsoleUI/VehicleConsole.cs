@@ -2,7 +2,6 @@
 using Ex03.GarageLogic;
 using System;
 using System.Collections.Generic;
-using Ex03.ConsoleUI;
 
 namespace Ex03.ConsoleUI
 {
@@ -197,7 +196,7 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    msg = string.Format("Please Enter The current PressureInput:");
+                    msg = "Please Enter The current PressureInput:";
                     Console.WriteLine(msg);
                     userInput = Console.ReadLine();
                     if (float.TryParse(userInput, out currentPressure) == false)
@@ -226,7 +225,7 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    msg = string.Format("Please Enter The energy amount (in liters or hours):");
+                    msg = "Please Enter The energy amount (in liters or hours):";
                     Console.WriteLine(msg);
                     userInput = Console.ReadLine();
                     if (float.TryParse(userInput, out currentEnergy) == false)
@@ -282,7 +281,7 @@ namespace Ex03.ConsoleUI
                     if (i_Vehicle.Engine is GasEngine gasEngine)
                     {
                         eFuelType fuelType = getFuelTypeFromUser();
-                        gasEngine.RefuelTheCar(energyFillAmount, fuelType);
+                        gasEngine.RefuelTheVehicle(energyFillAmount, fuelType);
                     }
                     else if (i_Vehicle.Engine is ElectricEngine electricEngine)
                     {
@@ -318,7 +317,7 @@ namespace Ex03.ConsoleUI
 
                     foreach (eFuelType type in Enum.GetValues(typeof(eFuelType)))
                     {
-                        msg = string.Format("- {0} ({1})", type, (int)type + 1);
+                        msg = string.Format("({0}) {1}", (int)type + 1 ,type);
                         Console.WriteLine(msg);
                     }
 

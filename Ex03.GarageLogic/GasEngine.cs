@@ -1,19 +1,14 @@
 ﻿using Ex03.GarageLogic.Enums;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Permissions;
-using System.Text;
 
 namespace Ex03.GarageLogic
 {
     public class GasEngine : Engine
     {
-        private const float k_MinFuelAmount = 0;
-
         private eFuelType m_FuelType;
         private float m_CurrentFuelQuantity;
         private readonly float r_MaxLitersFuelQuantity;
+        private const float k_MinFuelAmount = 0;
 
         public GasEngine(float i_MaxLitersFuelQuantity, eFuelType i_FuelType)
         {
@@ -22,7 +17,10 @@ namespace Ex03.GarageLogic
         }
         public float MaxLitersFuelQuantity
         {
-            get { return r_MaxLitersFuelQuantity; }
+            get 
+            {
+                return r_MaxLitersFuelQuantity; 
+            }
         }
         public eFuelType FuelType
         {
@@ -39,9 +37,9 @@ namespace Ex03.GarageLogic
             }
             set
             {
-                if (value < k_MinFuelAmount || value > MaxLitersFuelQuantity)
+                if (value < k_MinFuelAmount || value > r_MaxLitersFuelQuantity)
                 {
-                    throw new ValueOutOfRangeException(k_MinFuelAmount, MaxLitersFuelQuantity); //fuel amount
+                    throw new ValueOutOfRangeException(k_MinFuelAmount, MaxLitersFuelQuantity);
                 }
 
                 m_CurrentFuelQuantity = value;
@@ -62,18 +60,12 @@ namespace Ex03.GarageLogic
         {
             return (m_CurrentFuelQuantity / r_MaxLitersFuelQuantity) * 100;
         }
-        public void RefuelTheCar(float i_AmountOfFuelToAdd, eFuelType i_FuelTypeToAdd)
+        public void RefuelTheVehicle(float i_AmountOfFuelToAdd, eFuelType i_FuelTypeToAdd)
         {
-            
-            //if (!Enum.IsDefined(typeof(eFuelType), i_FuelTypeToAdd))
-            //{
-            //    throw new ArgumentException("Invalid: there is no Feul type");
-            //}
-
-            //if (i_FuelTypeToAdd != FuelType) //? אם זה מכונית אפשר למלא גם ב96 וגם 95
-            //{
-            //    throw new ArgumentException("Invalid: Wrong Feul type");
-            //}
+            if (i_FuelTypeToAdd != FuelType)
+            {
+                throw new Exception("Invalid: Wrong Feul type");
+            }
 
             if (i_AmountOfFuelToAdd < k_MinFuelAmount || CurrentFuelQuantity + i_AmountOfFuelToAdd > r_MaxLitersFuelQuantity)
             {

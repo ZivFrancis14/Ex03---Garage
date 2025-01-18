@@ -1,6 +1,5 @@
 ﻿using Ex03.GarageLogic;
 using Ex03.GarageLogic.Enums;
-using Ex03_Ziv_315154351_Rony_318916871;
 using System;
 using System.Linq;
 
@@ -10,7 +9,6 @@ namespace Ex03.ConsoleUI
     {
         private GarageManager m_GarageManager;
         private VehicleConsole m_VehicleConsole;
-        private VehicleRecord m_VehicleRecord;
 
         public void StartGarageSystem()
         {
@@ -154,7 +152,7 @@ namespace Ex03.ConsoleUI
         }
         private bool vehicleIsExist(string i_LicencePlateNumber)
         {
-            return m_GarageManager.isVehicleExisit(i_LicencePlateNumber);
+            return m_GarageManager.IsVehicleExisit(i_LicencePlateNumber);
         }
         private string getLicencePlateNumberFromUser()
         {

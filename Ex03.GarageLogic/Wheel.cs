@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Ex03.GarageLogic
+﻿namespace Ex03.GarageLogic
 {
     public class Wheel
     {
@@ -15,7 +10,6 @@ namespace Ex03.GarageLogic
         {
             r_MaxAirPressure = i_MaxAirPressure;
         }
-
         public float MaxAirPressure
         {
             get
