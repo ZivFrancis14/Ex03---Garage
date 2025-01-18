@@ -75,7 +75,6 @@ namespace Ex03.GarageLogic
                 m_LicencePlateNumber = value;
             }
         }
-
         public Vehicle(string i_LicencePlateNumber, Engine i_Engine, int i_NumberOfWheels, float i_WheelsMaxPressure)
         {
             m_Engine = i_Engine;
@@ -92,23 +91,10 @@ namespace Ex03.GarageLogic
         }
         public virtual void CompleteVehicleDetails(List<object> i_VehicleDetails)
         {
-            try
-            {
-                VehicleModelName = i_VehicleDetails[0].ToString();
-                Engine.InitEngine((float)i_VehicleDetails[1]);
-                EnergyPercentage = Engine.EnergyPrecentage();
-                UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
-            }
-            catch(ValueOutOfRangeException ex)
-            {
-                string msg = string.Format("Error: {0}", ex.Message);
-                Console.WriteLine(msg);
-            }
-            catch (Exception ex)
-            {
-                string msg = string.Format("Error: {0}", ex.Message);
-                Console.WriteLine(msg);
-            }
+            VehicleModelName = i_VehicleDetails[0].ToString();
+            Engine.InitEngine((float)i_VehicleDetails[1]);
+            EnergyPercentage = Engine.EnergyPrecentage();
+            UpdateWheels((float)i_VehicleDetails[2], (string)i_VehicleDetails[3]);
         }
         private void UpdateWheels(float i_AirPressure, string i_ManufacturerName)
         {
@@ -128,6 +114,7 @@ namespace Ex03.GarageLogic
             foreach (Wheel wheel in Wheels)
             {
                 wheel.FillAirToMax();
+
             }
         }
     }

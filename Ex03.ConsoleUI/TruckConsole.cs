@@ -1,20 +1,17 @@
 ﻿using Ex03.GarageLogic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ex03_Ziv_315154351_Rony_318916871
+namespace Ex03.ConsoleUI
 {
     internal class TruckConsole
     {
-        public void InsertTruckStatus(List<object> valuesToVehicle)
+        public void InsertTruckStatus(List<object> i_ValuesToVehicle)
         {
-            valuesToVehicle.Add(isTransportingRefrigerate());
-            valuesToVehicle.Add(getCargoVolume());
+            i_ValuesToVehicle.Add(IsTransportingRefrigerate());
+            i_ValuesToVehicle.Add(getCargoVolume());
         }
-        public bool isTransportingRefrigerate()
+        public bool IsTransportingRefrigerate()
         {
             bool isValidInput = false;
             bool isTransportingRefrigerated = false;
@@ -44,15 +41,13 @@ namespace Ex03_Ziv_315154351_Rony_318916871
 
             return isTransportingRefrigerated;
         }
-
-        internal void DisplayTruckDetails(Truck i_Truck)
+        public void DisplayTruckDetails(Truck i_Truck)
         {
             string msg = string.Empty;
 
             msg = string.Format("- Is Transporting Refrigerate: {0}\n- Engine Volume: {1}", i_Truck.TransportingRefrigerate.ToString(), i_Truck.CargoVolume);
             Console.WriteLine(msg);
         }
-
         private float getCargoVolume()
         {
             float cargoVolume = 0.0f;

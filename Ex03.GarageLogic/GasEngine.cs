@@ -53,8 +53,10 @@ namespace Ex03.GarageLogic
             {
                 throw new ValueOutOfRangeException(0, r_MaxLitersFuelQuantity);
             }
-
-            m_CurrentFuelQuantity = i_CurrentFeulQuantity;
+            else
+            {
+                m_CurrentFuelQuantity = i_CurrentFeulQuantity;
+            }           
         }
         public override float EnergyPrecentage()
         {
@@ -63,24 +65,22 @@ namespace Ex03.GarageLogic
         public void RefuelTheCar(float i_AmountOfFuelToAdd, eFuelType i_FuelTypeToAdd)
         {
             
-            if (!Enum.IsDefined(typeof(eFuelType), i_FuelTypeToAdd))
-            {
-                throw new ArgumentException("Invalid: there is no Feul type");
-            }
+            //if (!Enum.IsDefined(typeof(eFuelType), i_FuelTypeToAdd))
+            //{
+            //    throw new ArgumentException("Invalid: there is no Feul type");
+            //}
 
-            if (i_FuelTypeToAdd != FuelType)
-            {
-                throw new ArgumentException("Invalid: Wrong Feul type");
-            }
+            //if (i_FuelTypeToAdd != FuelType) //? אם זה מכונית אפשר למלא גם ב96 וגם 95
+            //{
+            //    throw new ArgumentException("Invalid: Wrong Feul type");
+            //}
 
             if (i_AmountOfFuelToAdd < k_MinFuelAmount || CurrentFuelQuantity + i_AmountOfFuelToAdd > r_MaxLitersFuelQuantity)
             {
-                throw new ValueOutOfRangeException(0, MaxLitersFuelQuantity); //fuel amount
+                throw new ValueOutOfRangeException(0, MaxLitersFuelQuantity - CurrentFuelQuantity);
             }
 
             CurrentFuelQuantity += i_AmountOfFuelToAdd;
-
-
         }
     }
      

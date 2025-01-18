@@ -10,12 +10,11 @@ namespace Ex03.ConsoleUI
 {
     internal class CarConsole
     {
-        public void InsertCarStatus(List<object> valuesToVehicle)
+        public void InsertCarStatus(List<object> i_ValuesToVehicle)
         {            
-            valuesToVehicle.Add(getColorOfCar());
-            valuesToVehicle.Add(getNumberOfDoors());
+            i_ValuesToVehicle.Add(getColorOfCar());
+            i_ValuesToVehicle.Add(getNumberOfDoors());
         }
-
         private eColorType getColorOfCar()
         {
             eColorType carColor = eColorType.White;
@@ -49,11 +48,6 @@ namespace Ex03.ConsoleUI
                 catch (FormatException ex)
                 {
                     msg = string.Format("Error: {0}", ex.Message);
-                    Console.WriteLine(msg);
-                }
-                catch (Exception ex)
-                {
-                    msg = string.Format("Unexpected error: {0}", ex.Message);
                     Console.WriteLine(msg);
                 }
             }

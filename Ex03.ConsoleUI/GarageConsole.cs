@@ -2,31 +2,21 @@
 using Ex03.GarageLogic.Enums;
 using Ex03_Ziv_315154351_Rony_318916871;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
 
 namespace Ex03.ConsoleUI
 {
     internal class GarageConsole
     {
-        private VehiclesCreator m_VehiclesCreator;
         private GarageManager m_GarageManager;
-        private CarConsole m_CarConsole;
-        private MotorcycleConsole m_MotorcycleConsole;
-        private TruckConsole m_TruckConsole;
+        private VehicleConsole m_VehicleConsole;
         private VehicleRecord m_VehicleRecord;
 
-        public void startGarageSystem()
+        public void StartGarageSystem()
         {
             m_GarageManager = new GarageManager();
-            m_CarConsole = new CarConsole();
-            m_MotorcycleConsole = new MotorcycleConsole();
-            m_TruckConsole = new TruckConsole();
-            m_VehiclesCreator = new VehiclesCreator();
+            m_VehicleConsole = new VehicleConsole();
             bool userExit = false;
-
             string msg = string.Empty;
 
             msg = "Welcome To The Garage";
@@ -49,7 +39,6 @@ namespace Ex03.ConsoleUI
 
             printOptionsMenu();
             userChoice = getUserOption(k_MinValue, k_MaxValue);
-
             switch (userChoice)
             {
                 case 1:
@@ -57,7 +46,7 @@ namespace Ex03.ConsoleUI
                     break;
                 case 2:
                     displayCurrentVehicleInGarage();
-                    break; 
+                    break;
                 case 3:
                     changeVehicleStatus();
                     break;
@@ -94,7 +83,7 @@ namespace Ex03.ConsoleUI
             "7. Exit");
             Console.WriteLine(msg);
         }
-        private int getUserOption(int minOption, int maxOption)
+        private int getUserOption(int i_MinOption, int i_MaxOption)
         {
             int userChoice = 0;
             bool isValidInput = false;
@@ -112,9 +101,9 @@ namespace Ex03.ConsoleUI
                         msg = "Invalid input. Please enter a numeric value.";
                         throw new FormatException(msg);
                     }
-                    if (userChoice < minOption || userChoice > maxOption)
+                    if (userChoice < i_MinOption || userChoice > i_MaxOption)
                     {
-                        msg = string.Format("Invalid option. Please select a number between {0} and {1}.", minOption, maxOption);
+                        msg = string.Format("Invalid option. Please select a number between {0} and {1}.", i_MinOption, i_MaxOption);
                         throw new FormatException(msg);
                     }
 
@@ -132,7 +121,7 @@ namespace Ex03.ConsoleUI
         private void vehicleByPlateNumberToGarage()
         {
             Vehicle newVehicle = null;
-            string licencePlateNumber = string.Empty;;
+            string licencePlateNumber = string.Empty; ;
 
             licencePlateNumber = getLicencePlateNumberFromUser();
             if (vehicleIsExist(licencePlateNumber) == true)
@@ -141,8 +130,8 @@ namespace Ex03.ConsoleUI
             }
             else
             {
-                newVehicle = createNewVehicle(licencePlateNumber);
-                setVehicleDetails(newVehicle);
+                newVehicle = m_VehicleConsole.CreateNewVehicle(licencePlateNumber, ref m_GarageManager);
+                m_VehicleConsole.SetVehicleDetails(newVehicle);
                 createVehicleRecord(newVehicle);
             }
         }
@@ -207,203 +196,6 @@ namespace Ex03.ConsoleUI
             }
             return true;
         }
-        private Vehicle createNewVehicle(string i_LicencePlateNumber)
-        {
-            Vehicle newVehicle = null;
-            eVehicleType userVehicleChoice = getUserVehicleOptions(m_VehiclesCreator.CurrentVehicleTypes);
-
-            switch (userVehicleChoice)
-            {
-                case eVehicleType.GasCar:
-                    newVehicle = m_VehiclesCreator.CreateGasCar(i_LicencePlateNumber, ref m_GarageManager);
-                    break;
-                case eVehicleType.ElectricCar:
-                    newVehicle = m_VehiclesCreator.CreateElectricCar(i_LicencePlateNumber, ref m_GarageManager);
-                    break;
-                case eVehicleType.GasMotorcycle:
-                    newVehicle = m_VehiclesCreator.CreateGasMotorcycle(i_LicencePlateNumber, ref m_GarageManager);
-                    break;
-                case eVehicleType.ElectricMotorcycle:
-                    newVehicle = m_VehiclesCreator.CreateElectricMotorcycle(i_LicencePlateNumber, ref m_GarageManager);
-                    break;
-                case eVehicleType.Truck:
-                    newVehicle = m_VehiclesCreator.CreateTruck(i_LicencePlateNumber, ref m_GarageManager);
-                    break;
-                default:
-                    break;
-            }
-
-            return newVehicle;
-        }
-        private eVehicleType getUserVehicleOptions(eVehicleType[] i_VehicleOptions)
-        {
-            string msg = string.Empty;
-            eVehicleType userChoice = 0;
-            bool inputIsValid = false;
-
-            while (inputIsValid == false)
-            {
-                try
-                {
-                    msg = string.Format("Please choose the number of your vehicle:");
-                    Console.WriteLine(msg);
-                    for (int i = 0; i < i_VehicleOptions.Length; i++)
-                    {
-                        msg = string.Format("{0}.  {1}", i + 1, i_VehicleOptions[i].ToString());
-                        Console.WriteLine(msg);
-                    }
-
-                    string userInput = Console.ReadLine();
-                    if (int.TryParse(userInput, out int choice) == false)
-                    {
-                        throw new FormatException("Invalid input. Please enter a number.");
-                    }
-                    if (choice < 1 || choice > i_VehicleOptions.Length)
-                    {
-                        throw new FormatException("Invalid input. Please enter a number.");
-                    }
-                    userChoice = i_VehicleOptions[choice - 1];
-                    inputIsValid = true;
-                }
-                catch (FormatException ex)
-                {
-                    msg = string.Format("Error: ", ex.Message);
-                    Console.WriteLine(msg);
-                }
-            }
-
-            return userChoice;
-        }
-        private void setVehicleDetails(Vehicle i_Vehicle)
-        {
-            List<object> valuesToVehicle = getGeneralVehicleDetails(i_Vehicle);
-            switch (i_Vehicle)
-            {
-                case Car car:
-                    m_CarConsole.InsertCarStatus(valuesToVehicle);
-                    break;
-                case Motorcycle motorcycle:
-                    m_MotorcycleConsole.InsertMotorcycleStatus(valuesToVehicle);
-                    break;
-                case Truck truck:
-                    m_TruckConsole.InsertTruckStatus(valuesToVehicle);
-                    break;
-                default:
-                    break;
-            }
-
-            i_Vehicle.CompleteVehicleDetails(valuesToVehicle);
-        }
-        private List<object> getGeneralVehicleDetails(Vehicle i_Vehicle)
-        {
-            string modelName = string.Empty;
-            float currentEnergyPercentage = 0;
-            float currentWheelsPressure = 0;
-            string manufacturerName = string.Empty;
-
-            string msg = "Please enter Model Name:";
-            Console.WriteLine(msg);
-            modelName = getModelOrManufacturerNameFromUser();
-            currentEnergyPercentage = currentEnergyAmountInput();
-            msg = "Please enter wheel manufacturer name:";
-            Console.WriteLine(msg);
-            manufacturerName = getModelOrManufacturerNameFromUser();
-            currentWheelsPressure = currentWheelsPressureInput();
-
-            List<object> generalVehicleDetails = new List<object>
-            {
-                modelName,              
-                currentEnergyPercentage, 
-                currentWheelsPressure,   
-                manufacturerName         
-            };
-
-            return generalVehicleDetails;
-        }
-        private string getModelOrManufacturerNameFromUser()
-        {
-            string modelName = string.Empty;
-            bool isValidInput = false;
-
-            while (isValidInput == false)
-            {
-                modelName = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(modelName))
-                {
-                    string msg = "Input cannot be empty or whitespace. Please try again.";
-                    Console.WriteLine(msg);
-                }
-                else
-                {
-                    isValidInput = true;
-                }
-            }
-
-            return modelName;
-        }
-        private float currentWheelsPressureInput()
-        {
-            float currentPressure = 0;
-            bool isValidInput = false;
-            string userInput = string.Empty;
-            string msg = string.Empty;
-
-            while (isValidInput == false)
-            {
-                try
-                {
-                    msg = string.Format("Please Enter The current PressureInput:"); // (value between {0} - {1}):", i_MinEnergy, i_MaxEnergy);
-                    Console.WriteLine(msg);
-                    userInput = Console.ReadLine();
-                    if (float.TryParse(userInput, out currentPressure) == false)
-                    {
-                        throw new FormatException("Invalid input. Please enter a numeric value.");
-                    }
-
-                    isValidInput = true;
-                }
-                catch (FormatException ex)
-                {
-                    msg = string.Format("Error: {0}", ex.Message);
-                }
-            }
-
-            return currentPressure;
-        }
-        private float currentEnergyAmountInput()
-        {
-            float currentEnergy = 0;
-            bool isValidInput = false;
-            string userInput = string.Empty;
-            string msg = string.Empty;
-
-            while (isValidInput == false)
-            {
-                try
-                {
-                    msg = string.Format("Please Enter The current energy amount (in liters or hours):"); // (value between {0} - {1}):", i_MinEnergy, i_MaxEnergy);
-                    Console.WriteLine(msg);
-                    userInput = Console.ReadLine();
-                    if (float.TryParse(userInput, out currentEnergy) == false)
-                    {
-                        throw new FormatException("Invalid input. Please enter a numeric value.");
-                    }
-
-                    if (currentEnergy < 0 || currentEnergy > 100)
-                    {
-                        throw new FormatException();
-                    }
-
-                    isValidInput = true;
-                }
-                catch (FormatException ex)
-                {
-                    msg = string.Format("Error: {0}", ex.Message);
-                }
-            }
-
-            return currentEnergy;
-        }
         private void displayCurrentVehicleInGarage()
         {
             string msg = string.Empty;
@@ -432,11 +224,12 @@ namespace Ex03.ConsoleUI
         {
             string msg = string.Empty;
             int userChoice = 0;
+            const int k_MinValue = 1;
+            const int k_MaxValue = 2;
 
             msg = "Select a condition to filter by:\n(1) In Repair\n(2) Repaired\n(3) Paid";
             Console.WriteLine(msg);
-            userChoice = getUserOption(1, 3);
-
+            userChoice = getUserOption(k_MinValue, k_MaxValue);
             eVehicleStatus filterCondition = (eVehicleStatus)userChoice;
             displayVehiclesByStatus(filterCondition);
         }
@@ -445,9 +238,9 @@ namespace Ex03.ConsoleUI
             string msg = string.Empty;
             bool isFound = false;
 
-            foreach(var record in m_GarageManager.CurrentVehicleInGarage.Values)
+            foreach (var record in m_GarageManager.CurrentVehicleInGarage.Values)
             {
-                if(record.VehicleStatus == i_VehicleStatus)
+                if (record.VehicleStatus == i_VehicleStatus)
                 {
                     msg = string.Format("{0}", record.Vehicle.LicencePlate);
                     Console.WriteLine(msg);
@@ -455,7 +248,7 @@ namespace Ex03.ConsoleUI
                 }
             }
 
-            if(isFound == false)
+            if (isFound == false)
             {
                 msg = string.Format("No vehicles found with status {0}", i_VehicleStatus.ToString());
                 Console.WriteLine(msg);
@@ -516,7 +309,7 @@ namespace Ex03.ConsoleUI
             string msg = string.Empty;
             bool isValidInput = false;
 
-            while (!isValidInput)
+            while (isValidInput == false)
             {
                 try
                 {
@@ -542,21 +335,60 @@ namespace Ex03.ConsoleUI
         }
         private void changeVehicleStatus()
         {
+            string licencePlateNumber = getExistingLicencePlateNumber();
+            eVehicleStatus newStatus = getNewVehicleStatusFromUser();
+            m_GarageManager.ChangeVehicleStatus(licencePlateNumber, newStatus);
+            string msg = string.Format("The status of the vehicle with licence plate '{0}' has been successfully updated to '{1}'.", licencePlateNumber, newStatus);
+            Console.WriteLine(msg);
+        }
+        private string getExistingLicencePlateNumber()
+        {
+            string licencePlateNumber = string.Empty;
+            bool inputIsValid = false;
+            string msg = string.Empty;
 
+            while (inputIsValid == false)
+            {
+                licencePlateNumber = getLicencePlateNumberFromUser();
+                if (vehicleIsExist(licencePlateNumber) == false)
+                {
+                    msg = string.Format("{0} Not Exiest", licencePlateNumber);
+                    Console.WriteLine(msg);
+                }
+                else
+                {
+                    inputIsValid = true;
+                }
+            }
+
+            return licencePlateNumber;
+        }
+        private eVehicleStatus getNewVehicleStatusFromUser()
+        {
+            const int k_MinValue = 1;
+            const int k_MaxValue = 3;
+
+            string msg = "Please select the new status for the vehicle:\n(1) In Repair\n(2) Repaired\n(3) Paid";
+            Console.WriteLine(msg);
+            int userChoice = getUserOption(k_MinValue, k_MaxValue);
+            return (eVehicleStatus)userChoice;
         }
         private void fillMaxAirWheels()
         {
-
+            string licencePlateNumber = getExistingLicencePlateNumber();
+            m_GarageManager.CurrentVehicleInGarage[licencePlateNumber].Vehicle.FillMaxAirToWeels();
         }
         private void refuelOrChargeVehicle()
         {
-
+            string licencePlateNumber = getExistingLicencePlateNumber();
+            Vehicle vehicle = m_GarageManager.CurrentVehicleInGarage[licencePlateNumber].Vehicle;
+            m_VehicleConsole.FillEnergyInVehicle(vehicle);
         }
         private void displayVehicleDetails()
         {
             string licencePlateNumber = getLicencePlateNumberFromUser();
             var vehicleRecord = m_GarageManager.CurrentVehicleInGarage[licencePlateNumber];
-            string fuelType = getFuelType(vehicleRecord.Vehicle.Engine);            
+            string fuelType = getFuelType(vehicleRecord.Vehicle.Engine);
 
             string msg = "Vehicle Details:";
             Console.WriteLine(msg);
@@ -571,26 +403,10 @@ namespace Ex03.ConsoleUI
             "- Wheels Manufacturer: {7}\n" +
             "- Wheels Current Air Pressure: {8}",
                 licencePlateNumber, vehicleRecord.Vehicle.VehicleModelName, vehicleRecord.OwnerName,
-                vehicleRecord.OwnerPhone, vehicleRecord.VehicleStatus,fuelType, vehicleRecord.Vehicle.Engine.EnergyPrecentage(),
+                vehicleRecord.OwnerPhone, vehicleRecord.VehicleStatus, fuelType, vehicleRecord.Vehicle.Engine.EnergyPrecentage(),
                 vehicleRecord.Vehicle.Wheels[0].ManufacturerName, vehicleRecord.Vehicle.Wheels[0].CurrentAirPressure);
             Console.WriteLine(msg);
-            switch(vehicleRecord.Vehicle)
-            {
-                case Car car:
-                    m_CarConsole.DisplayCarDetails(car);
-                    break;
-
-                case Motorcycle motorcycle:
-                    m_MotorcycleConsole.DisplayMotorcycleDetails(motorcycle);
-                    break;
-
-                case Truck truck:
-                    m_TruckConsole.DisplayTruckDetails(truck);
-                    break;
-
-                default:
-                    break;
-            }
+            m_VehicleConsole.DisplayVehicleDetailsByType(vehicleRecord.Vehicle);
         }
         private string getFuelType(Engine i_Engine)
         {
@@ -607,6 +423,5 @@ namespace Ex03.ConsoleUI
 
             return fuelType;
         }
-
     }
 }

@@ -1,18 +1,15 @@
 ﻿using Ex03.GarageLogic;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ex03_Ziv_315154351_Rony_318916871
+namespace Ex03.ConsoleUI
 {
     internal class MotorcycleConsole
     {
-        public void InsertMotorcycleStatus(List<object> valuesToVehicle)
+        public void InsertMotorcycleStatus(List<object> i_ValuesToVehicle)
         {
-            valuesToVehicle.Add(getLicenceType());
-            valuesToVehicle.Add(getEngineCapacity());
+            i_ValuesToVehicle.Add(getLicenceType());
+            i_ValuesToVehicle.Add(getEngineCapacity());
         }
         private eLicenceType getLicenceType()
         {
@@ -79,8 +76,7 @@ namespace Ex03_Ziv_315154351_Rony_318916871
 
             return engineCapacity;
         }
-
-        internal void DisplayMotorcycleDetails(Motorcycle i_Motorcycle)
+        public void DisplayMotorcycleDetails(Motorcycle i_Motorcycle)
         {
             string msg = string.Empty;
 

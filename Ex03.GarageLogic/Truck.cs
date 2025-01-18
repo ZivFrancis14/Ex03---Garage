@@ -9,9 +9,8 @@ namespace Ex03.GarageLogic
     {
         private bool m_TransportingRefrigerate;
         private float r_CargoVolume;
-
-        private const int k_NumberOfWheels = 4;
-        private const int k_WheelsMaxPressure = 34;
+        private const int k_NumberOfWheels = 14;
+        private const int k_WheelsMaxPressure = 29;
 
         public Truck(string i_LicencePlateNumber, Engine i_Engine) : base(i_LicencePlateNumber, i_Engine, k_NumberOfWheels, k_WheelsMaxPressure)
         {
@@ -28,7 +27,6 @@ namespace Ex03.GarageLogic
                 m_TransportingRefrigerate = value;
             }
         }
-
         public float CargoVolume
         {
             get

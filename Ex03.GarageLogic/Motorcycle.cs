@@ -10,9 +10,8 @@ namespace Ex03.GarageLogic
     {
         private eLicenceType m_LicenceType;
         private int m_EngineVolume;
-
-        private const int k_NumberOfWheels = 4;
-        private const int k_WheelsMaxPressure = 34;
+        private const int k_NumberOfWheels = 2;
+        private const int k_WheelsMaxPressure = 32;
 
         public Motorcycle(Engine i_Engine, string i_LicencePlateNumber) : base(i_LicencePlateNumber, i_Engine, k_NumberOfWheels, k_WheelsMaxPressure)
         {
@@ -28,7 +27,6 @@ namespace Ex03.GarageLogic
                 m_LicenceType = value;
             }
         }
-
         public int EngineVolume
         {
             get
@@ -46,6 +44,5 @@ namespace Ex03.GarageLogic
             LicenceType = (eLicenceType)i_VehicleDetails[4];
             EngineVolume = (int)i_VehicleDetails[5];
         }
-
     }
 }
